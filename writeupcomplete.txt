@@ -1,0 +1,30 @@
+1) Project and developer options:-
+   In this project there is a welcome message appears on the chrome Browser window "Welcome to Sport Shoes an E-commerce Website" comprises of two options for admin       login and register for the new user.
+   
+(i)For the new user registeration it needs for entries that include name,gender,email,username, password. Once entering the respected details user is able to register     and details can be stored as a back-end table of database.
+
+(ii) The user will login using its own registered ID and password.
+
+(iii) The user once it gets login he can see the 4 buttons which allows him to add new products, See all users who have login, see reports and aslo the see product list.
+
+(iv) The add product to catalogue includes product name ,product category, product price.
+
+(v) The see product list will list all the products from E-commerce Sport shoes website comprising of ID, category,Price,Purchase.
+
+(vi) The database have been connected successfully with the application.
+      
+
+2) Sprint
+(i)  Database planning includes both for product and user.
+(ii) JSP pages planning in order to show useful information of E-commerce sporty shoes website details.
+(iii)Functionalities and operation implementation of useful annotations.
+
+3) Core concepts include
+(i)  .jsp
+(ii) MYSQL Workbench
+(iii)Spring - core,beans,annotations
+(iv) WEB MVC
+(v)  Validation API
+(vi) Tomcat
+
+4) Github link   

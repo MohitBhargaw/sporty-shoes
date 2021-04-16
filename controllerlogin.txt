@@ -1,0 +1,180 @@
+package com.sporty.controller;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sporty.entities.User;
+import com.sporty.service.LoginService;
+import com.sporty.service.ProductService;
+import com.sporty.service.UserService;
+import com.sporty.entities.Product;
+
+@RestController
+public class LoginController {
+	@Autowired
+    LoginService service;
+	@Autowired 
+	private ProductService productService;
+	@Autowired
+	private UserService userService;
+
+	
+	@GetMapping("/index")
+	public ModelAndView index(Model m) {
+		ModelAndView mav=new ModelAndView("user");
+		return mav;
+		}
+	
+	 @GetMapping("/register")
+	    public ModelAndView registerUser(Model model) {
+	        ModelAndView mav=new ModelAndView("register");
+	        User user=new User();
+	        mav.addObject("user", user);
+	        return mav;
+	    }
+	 
+	@GetMapping("/login")
+	public ModelAndView login(Model m) {
+		ModelAndView mav=new ModelAndView("login");
+		return mav;
+	}
+	@RequestMapping(value="/payment" , method=RequestMethod.GET)
+	public ModelAndView pay(Model m) {
+		ModelAndView mav=new ModelAndView("payment") ;
+		return mav;}
+		
+	@RequestMapping(value="/successfull" , method=RequestMethod.GET)
+	public ModelAndView Showpayment(ModelMap model)
+	{
+		ModelAndView mav= new ModelAndView("succesfull.jsp");
+		return mav;
+
+	}
+
+	
+	@RequestMapping(value="/login" , method=RequestMethod.POST)
+	public ModelAndView ShowWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password)
+	{
+		boolean isValidUser = service.validateUser(name, password);
+		
+		if(!isValidUser) {
+			model.put("errorMessage","Invalid Credentials" );
+			ModelAndView mav=new ModelAndView("login");
+			return mav;
+		}
+		
+		model.put("name",name);
+		model.put("password",password);
+		ModelAndView mav= new ModelAndView("LoginData");
+		return mav;
+
+	}
+	 
+	    @GetMapping(path="/products", produces = "application/json")
+	    public List<Product> retrieveAllProducts(){
+	        return productService.getProducts();
+	    }
+	    
+	    
+	   @GetMapping(path="/users", produces = "application/json")
+	   public List<User> retrieveAllUsers(){
+	       return userService.getUsers();
+	  }
+
+	   @GetMapping("/login/LoginData")
+	    public ModelAndView listUsers(Model model) {
+	        ModelAndView mav=new ModelAndView("LoginData");
+	        mav.addObject("user", retrieveAllUsers());
+	        return mav;
+	    }
+	    
+	    @GetMapping("/LoginData/reports")
+	    public ModelAndView reports(Model m) {
+	        ModelAndView mav = new ModelAndView("list-report");
+	        return mav;
+	    }
+	    
+	    @GetMapping("/LoginData/userslist")
+	    public ModelAndView listProducts(Model model) {
+	        ModelAndView mav=new ModelAndView("list-user");
+	        mav.addObject("user", retrieveAllUsers());
+	        return mav;
+	    }
+	    @GetMapping("/LoginData/productlist")
+	    public ModelAndView listProduct(@ModelAttribute("user") User user) {
+	        ModelAndView mav=new ModelAndView("list-product");
+	        mav.addObject("product", retrieveAllProducts());
+	        userService.saveUser(user);
+	        return mav;
+	    }
+	    @PostMapping("/saveUser")
+	    public ModelAndView saveUser(@ModelAttribute("user") User user) {
+	        ModelAndView mav=new ModelAndView("user-page");
+	        mav.addObject("product", retrieveAllProducts());
+	        userService.saveUser(user);
+	        return mav;
+	    }
+	    
+	    
+	   
+	    @GetMapping("/LoginData/addProduct")
+	    public ModelAndView addProduct(Model model) {
+	        ModelAndView mav=new ModelAndView("add-product");
+	        Product product=new Product();
+	        mav.addObject("product", product);
+	        return mav;
+	    }
+	    
+	    @PostMapping("/LoginData/saveProduct")
+	    public ModelAndView saveProduct(@ModelAttribute("product") Product product) {
+	        ModelAndView mav=new ModelAndView("redirect:/LoginData/productlist");
+	        productService.saveProduct(product);
+	        return mav;
+	    }
+	    
+	    
+	    
+	    
+	    @GetMapping("/LoginData/product/{id}")
+	    public EntityModel<Product> retrieveProduct(@PathVariable Integer id){
+	        Product product = productService.getProduct(id);
+	        EntityModel<Product> resource=EntityModel.of(product);
+	        WebMvcLinkBuilder linkTo=linkTo(methodOn(this.getClass()).retrieveAllProducts());
+	        resource.add(linkTo.withRel("all-products"));
+	        return resource;
+	    }
+	    
+	    @GetMapping("/LoginData/updateProduct")
+	    public ModelAndView showUpdate(@RequestParam("productId") Integer id, Model m) {
+	        Product product=retrieveProduct(id).getContent();
+	        m.addAttribute("product", product);
+	        return new ModelAndView("add-product");
+	    }
+	    
+	    @DeleteMapping("/LoginData/deleteProduct/{id}")  
+	    public ModelAndView deleteProduct(@PathVariable Integer id) {
+	        ModelAndView mav=new ModelAndView("list-product");
+	        productService.deleteProduct(id);
+	        return mav;
+	    }
+	
+		
+}  

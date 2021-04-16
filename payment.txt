@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<body background ="image1.png" >
+<meta charset="ISO-8859-1">
+<title>Payment</title>
+<form action="successfull.jsp" method="get">
+<br/>
+<br/>
+<center>Add payment: <input type="text" name="payment">
+<input type="submit" value="pay"/>
+
+</center>
+</form>
+
+
+</head>
+
+
+
+
+</body>
+</html>  

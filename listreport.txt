@@ -1,0 +1,91 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Report list of users</title>
+</head>
+<style>
+body {
+    background-color:navy;
+}
+
+ 
+
+.btn {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ 
+
+table, th, td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ 
+
+h1, h2 {
+    text-align: center;
+}
+
+ 
+
+.text-center {
+    text-align: center;
+}
+</style>
+<body>
+<h1>This is a User purchase Report</h1>
+<table>
+  <tr>
+            <th><b>Name</b></th>
+            <th><b>email</b></th>
+            <th><b>Gender</b></th>
+            <th><b>Category</b></th>
+            <th><b>Price</b></th>
+        </tr>
+        <tr>
+        <th bgcolor="grey">Mohit</th>
+            <th bgcolor="grey">mohit@gmail.com</th>
+            <th bgcolor="grey">male</th>
+            <th bgcolor="grey">shoe</th>
+            <th bgcolor="grey">1780</th>
+            </tr>
+            
+        <tr>
+        <th bgcolor="grey">Varun</th>
+            <th bgcolor="grey">varun@gmail.com</th>
+            <th bgcolor="grey">male</th>
+            <th bgcolor="grey">slipper</th>
+            <th bgcolor="grey">400</th>
+            </tr>
+            <tr>
+        <th bgcolor="grey">Raman</th>
+            <th bgcolor="grey">raman@gmail.com</th>
+            <th bgcolor="grey">male</th>
+            <th bgcolor="grey">shoe</th>
+            <th bgcolor="grey">1200</th>
+            </tr>
+           <tr>
+        <th bgcolor="grey">Shyam</th>
+            <th bgcolor="grey">shyam@gmail.com</th>
+            <th bgcolor="grey">male</th>
+            <th bgcolor="grey">shoe</th>
+            <th bgcolor="grey">800</th>
+            </tr>
+             <tr>
+        <th bgcolor="grey">gagan</th>
+            <th bgcolor="grey">gag@gmail.com</th>  
+            <th bgcolor="grey">male</th>
+            <th bgcolor="grey">shoe</th>
+            <th bgcolor="grey">680</th>
+            </tr>         
+
+</table>
+</body>
+</html>

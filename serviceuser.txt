@@ -1,0 +1,18 @@
+package com.sporty.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+
+import com.sporty.entities.User;
+
+ 
+@Service
+public interface UserService {
+    public List<User> getUsers();
+    public User saveUser(User user);
+
+ 
+
+}
